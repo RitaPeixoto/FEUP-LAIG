@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>LAIG - Parser Example</title>
+    <link rel="icon" href="data:,">
+
+    <style>
+        body,
+        html {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            color: white;
+        }
+
+       #infoPanel {
+            display: none;
+            position: absolute;
+            width: 20%;
+            min-height: 190px;
+            padding: 1em;
+            margin: 2em 0 0 2em;
+            text-align: center;
+            background-color: rgba(9, 52, 95, 0.4);
+            border-radius: 11%;  
+            color: white;      
+        }
+
+        #infoPanel h1 {
+            font-size: 30px;
+            margin: 0;
+            padding-bottom: 5px;
+        }
+
+        #infoPanel div {
+            font-size: 15px;
+        }
+
+        #infoPanel span {
+            font-size: 13px;
+        }
+
+        #infoPanel #info {
+            font-weight: bold;
+            margin-top: 15px;
+            color:#ebebebd0;
+        }
+
+        #infoPanel #errors {
+            font-size: 12px;
+            margin-top: 10px;
+            color: #ff000083;
+            font-weight: 800;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 30%;
+            height: 15px;
+            border-radius: 5px;  
+            margin-right: 0px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            cursor: pointer;
+        }
+        .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; 
+            background: black;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: black;
+            cursor: pointer;
+        }
+        .slider:hover{
+            opacity: 1;
+        }
+
+        #Board, #Time {
+            display: flex;
+            flex-direction: row;
+            color:Black;
+            margin-bottom: 10px;
+            -webkit-appearance: none;  
+            appearance: none;
+            width: 300px; 
+            outline: none;
+            -webkit-transition: .2s; 
+            transition: opacity .2s;
+        }
+
+        #Time{
+            margin-top: 5px;
+        }
+       
+       .mainMenu *{
+        color: white;
+       }
+        .mainMenu {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: black;
+        }
+
+        #menu {
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            background-color: #122644;
+            width: 600px;
+            padding: 2em;
+            border-radius: 5%;
+            border: 2px solid white;
+        }
+
+        .container_row{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .container_column{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #titlePlayer{
+            margin: 0.5em auto;
+            text-align: center;
+            color: black;
+        }
+
+        #menu h1{
+            font-size:50px;
+        }
+        #menu  h1, h3{
+            text-align: center;
+        }
+        
+        #menu article {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #menu h3{
+            margin-top: 4em;
+            width: 5em;
+        }
+    
+        #menu article .select {
+            margin-left:30px;
+        }
+
+        #menu > div {
+            flex-basis: 100%;
+        }
+
+        #menu > div > input {
+            display: block;
+        }
+
+        .select {
+            margin: auto;
+            display: block;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+
+        #player1, #player2{
+            background-color:#ebebeb;
+        }
+        
+        #menu article > div:last-child {
+            flex-basis: 100%;
+            margin: auto;
+            min-height: 3em;
+        }
+
+        #menu article label {
+            font-size: 16px;
+        }
+
+        #menu div .select{
+            width: 100px;
+        }
+        
+        #menu article .select {
+            border:none;
+            border-radius: 5px;
+        }
+ 
+        #menu .select {
+            font-size: 0.8em;
+            font-weight: 700;
+            color: #444;
+            line-height: 1.3;
+            padding: 0.6em 1.4em 0.5em 0.8em;
+            border: 1px solid #aaa;
+            box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+            border-radius: 0.5em;
+            appearance: none;
+            background-color: #c5c5c5;
+            content: "\f33d";
+        }
+
+        #menu .select::-ms-expand {
+            display: none;
+            margin: 0 auto;
+        }
+
+        #menu .select:hover {
+            border-color: #888;
+        }
+
+        #menu .select:focus {
+            border-color: #aaa;
+            outline: none;
+        }
+
+        #menu .select option {
+            font-weight: normal;
+            color: black;
+        }
+        
+        input[type=radio] {
+            opacity: 0;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        input[type=radio]:checked+label, input[type=radio]:not(:checked)+label {
+            background-color: black;
+            outline: black auto 6px;
+            font-size: 17px;
+        } 
+
+        input[type=radio]:not(:checked)+label {opacity: 0.5;}
+        input[type=radio]:checked+label{opacity: 1;}
+
+        input[type=radio]+label {
+            cursor: pointer;
+        }
+
+
+        input[type="submit"] {
+            margin-top: 40px !important;
+            cursor: pointer;
+            border: 1px solid white;
+            background-color: black;
+            width: 14em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        input[type="submit"]:hover{
+            background-color: white;
+            color: black;
+        }
+
+        #amount, #t, #BoardSize_info, #PlayTime_info{
+            position: absolute;
+        }
+
+        #amount, #t{
+            margin-left: 31em;
+        }
+
+        #BoardSize_info, #PlayTime_info{
+            margin-left: 5em;
+        }
+
+        #PlayTime, #BoardSize{
+            margin-left: 15em;
+            margin-right: auto;
+            width: 20em;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <script src="main.js"></script>
+    <div id="infoPanel">
+        <h1>Emulsion</h1>
+        <div>Current Player: <span id="player">None</span></div>
+        <div>Player 1 score: <span id="player1-score">0</span></div>
+        <div>Player 2 score: <span id="player2-score">0</span></div>
+        <div>Remaining time: <span id="time">0</span></div>
+        <div id="info"><span id="info"></span></div>
+        <div id="errors"><span id="errors"></span></div>
+    </div>
+    <div class="mainMenu">
+        <div id ="menu">
+            <div id ="header">
+                <h1>EMULSION</h1>
+               </div>
+            <div class = "container_row" style="flex-basis:auto;">
+                <div class = "container_column">
+                    <div style="background-color: #ffffff;">
+                        <div id="titlePlayer">Player 1</div>
+                    </div>
+                    <article id="player1">
+                        <div class="container_row" style="margin:1.5em auto;">
+                            <input type="radio" id="H1" name="player1" value="H" checked/>
+                            <label style="padding: 1em 1.7em" for="H1">Player</label>
+                            <input type="radio" id="B1" name="player1" value="B" />
+                            <label style="padding: 1em 2.2em" for="B1">Bot</label>
+                        </div>
+                        <div>
+                            <select class="select" style="margin:0em auto 3.2em auto; opacity: 0.3;" name="Difficulty" disabled>
+                                <option value="easy">Easy</option>
+                                <option value="difficult">Difficult</option>
+                            </select>
+                        </div>
+                    </article>
+                </div>
+                
+                <h3>Vs</h3>
+
+                <div class = "container_column">
+                    <div style="background-color: #ffffff;">
+                        <div id="titlePlayer">Player 2</div>
+                    </div>
+                    <article id="player2">
+                        <div class="container_row" style="margin:1.5em auto;">
+                            <input type="radio" id="H2" name="player2" value="H" checked/>
+                            <label style="padding: 1em 1.7em" for="H2">Player</label>
+                            <input type="radio" id="B2" name="player2" value="B" />
+                            <label style="padding: 1em 2.2em" for="B2">Bot</label> 
+                        </div>
+                        <div>
+                            <select class="select" style="margin:0em auto 3.2em auto; opacity: 0.6;" name="Difficulty" disabled>
+                                <option value="easy">Easy</option>
+                                <option value="difficult">Difficult</option>
+                            </select>
+                        </div>
+                    </article>
+                </div>
+            </div> 
+
+        <div id="Board" class="container_row" style="margin-top:3em;">
+            <label id="BoardSize_info" for="BoardSize">Board Size </label>
+            <input id="BoardSize" type="range" min="4" max="8" value="5" class="slider">
+            <output id="amount" name="amount" for="BoardSize">5</output>
+        </div>
+
+        <div id="Time" class="container_row">
+            <label id="PlayTime_info" for="PlayTime">Play Time</label>
+            <input id="PlayTime" type="range" min="10" max="120" value="30" class="slider">
+            <output id="t" name="t" for="PlayTime">30</output>   
+        </div>
+
+        <div style="flex-basis:auto;">
+            <input type="submit" value="Play" id="submit">
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

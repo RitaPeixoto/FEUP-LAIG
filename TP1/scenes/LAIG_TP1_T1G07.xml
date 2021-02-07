@@ -1,0 +1,1153 @@
+<lsf>
+
+<initials>
+    <reference length="0" />              <!-- axis length; "0" means no axis displayed -->
+
+    <root id="root" />     <!-- identifier of root node of the scene graph; this node -->
+                        <!-- must be defined in one of the following NODE declarations -->
+</initials>
+
+<views default="Side">
+    <!-- at least one of the following type of cameras must be declared -->
+    <perspective id="Side" near="0.1" far="500" angle="23">
+        <from x="30" y="5" z="7" />
+        <to x="0" y="5" z="7" />
+    </perspective>
+    <perspective id="Front" near="7" far="500" angle="15">
+        <from x="1" y="5" z="45" />
+        <to x="0" y="3.5" z="0" />
+    </perspective>
+    <perspective id="Top" near="0.1" far="500" angle="27">
+        <from x="3" y="30" z="5" />
+        <to x="-1.5" y="0" z="5" />
+    </perspective>
+    <ortho id="Ortho" near="0" far="50" left="-10" right="10" top="10" bottom="-1">
+        <from x="6" y="3" z="15"/>
+        <to x="0" y="-1.5" z="2" />
+        <up x="0" y="1" z="0" /><!-- optional, default 0,1,0 -->    
+    </ortho>    
+</views>
+
+
+<illumination>
+    <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           <!-- global ambient -->
+    <background r="0.7" g="0.8" b="1.0" a="1.0" />        <!-- background color -->
+</illumination>
+
+
+<lights>
+    <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
+    <light id="LightRight">            <!-- light identifier -->
+        <enable value="1" />        <!-- enable/disable -->
+        <position x="20" y="20" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+        <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+        <specular r="0.8" g="0.8" b="0.8" a="0.8" />            <!-- specular component -->
+    </light>
+    <light id="LightLeft">            <!-- light identifier -->
+        <enable value="0" />        <!-- enable/disable -->
+        <position x="0" y="20" z="20" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+        <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+        <specular r="0.8" g="0.8" b="0.8" a="0.8" />            <!-- specular component -->
+    </light>
+     <light id="LightTop">            <!-- light identifier -->
+        <enable value="0" />        <!-- enable/disable -->
+        <position x="0" y="20" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+        <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+        <diffuse r="0.8" g="0.8" b="0.8" a="1" />             <!-- diffuse component -->
+        <specular r="0.1" g="0.1" b="0.1" a="0.5" />            <!-- specular component -->
+    </light>
+    <light id="LightBottom">            <!-- light identifier -->
+        <enable value="0" />        <!-- enable/disable -->
+        <position x="0" y="-20" z="30" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+        <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+        <diffuse r="0.2" g="0.2" b="0.2" a="1" />             <!-- diffuse component -->
+        <specular r="0.5" g="0.5" b="0.5" a="0.5" />            <!-- specular component -->
+    </light>
+    <light id="CenteredLight">            <!-- light identifier -->
+        <enable value="0" />        <!-- enable/disable -->
+        <position x="0" y="8" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+        <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+    </light>
+</lights>
+
+
+<textures>
+   <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
+    <texture id="danger" path="danger.png" />
+    <texture id="floorTexture" path="chao4.jpg" />
+    <texture id="glassWallTexture" path="airport_glassWall.jpg" />
+    <texture id="feetTexture" path="feet.jpg"/>
+    <texture id="restroomTexture" path="restroom.jpg"/>
+    <texture id="gateTexture" path="gate.png"/>
+    <texture id="laptopTexture" path="laptop.jpg"/>
+    <texture id="flightBoardTexture" path="flightBoard.png"/>
+    <texture id="metalTexture" path="metal.jpg"/>
+    <texture id="securityTexture" path="distancia_seguranca.png"/>
+    <texture id="measuresTexture" path="measures.jpg"/>
+</textures>
+
+
+<materials>
+    <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
+
+//especular mais baixa para o que nao queremos metalico
+         requires a distinct "id". At least one material should be present. -->
+   <material id="Porcelain_Grey">     <!--cor das paredes-->                             
+       <shininess value="1" />
+       <specular r="0.86" g="0.86" b="0.86" a="1" />        <!-- specular reflection -->
+        <diffuse r="0.86" g="0.86" b="0.86" a="1" />         <!-- diffuse reflection -->
+        <ambient r="0.86" g="0.86" b="0.86" a="1" />         <!-- ambient reflection -->
+        <emissive r="0.1" g="0.1" b="0.1" a="1" />        <!-- emissive component -->
+     </material>
+    <material id="Off_white_emissive">        <!--cilindros dos tapetes-->                          
+       <shininess value="1" />
+       <specular r="0.97" g="0.97" b="1.0" a="1.0" />        <!-- specular reflection -->
+        <diffuse r="0.97" g="0.97" b="1.0" a="1.0" />         <!-- diffuse reflection -->
+        <ambient r="0.97" g="0.97" b="1.0" a="1.0" />         <!-- ambient reflection -->
+        <emissive r="0.6" g="0.6" b="0.6" a="1.0" />        <!-- emissive component -->
+     </material>
+     <material id="emissive">        <!--cilindros dos tapetes-->                          
+       <shininess value="1" />
+       <specular r="0.97" g="0.97" b="1.0" a="1.0" />        <!-- specular reflection -->
+        <diffuse r="0.97" g="0.97" b="1.0" a="1.0" />         <!-- diffuse reflection -->
+        <ambient r="0.97" g="0.97" b="1.0" a="1.0" />         <!-- ambient reflection -->
+        <emissive r="1.0" g="1.0" b="1.0" a="1.0" />        <!-- emissive component -->
+     </material>
+        <material id="White">        <!--cilindros dos tapetes-->                          
+       <shininess value="1" />
+       <specular r="1.0" g="1.0" b="1.0" a="1.0" />        <!-- specular reflection -->
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />         <!-- diffuse reflection -->
+        <ambient r="1.0" g="1.0" b="1.0" a="1.0" />         <!-- ambient reflection -->
+        <emissive r="0.5" g="0.5" b="0.5" a="1.0" />        <!-- emissive component -->
+     </material>
+        <material id="black">            <!--cor do tapete-->                      
+       <shininess value="1.0" />
+       <specular r="0.18" g="0.19" b="0.19" a="1" />        <!-- specular reflection -->
+        <diffuse r="0.18" g="0.19" b="0.19" a="1" />         <!-- diffuse reflection -->
+        <ambient r="0.18" g="0.19" b="0.19" a="1" />         <!-- ambient reflection -->
+        <emissive r="0" g="0" b="0" a="1.0" />               <!-- emissive component -->
+     </material>
+        <material id="navy_blue">                                  
+       <shininess value="1.0" />
+       <specular r="0.1" g="0.2" b="0.2" a="1.0" />        <!-- specular reflection -->
+        <diffuse r="0.1" g="0.20" b="0.2" a="1.0"  />         <!-- diffuse reflection -->
+        <ambient r="0.1" g="0.20" b="0.2" a="1.0"  />         <!-- ambient reflection -->
+        <emissive r="0" g="0.1" b="0.2" a="1.0"  />        <!-- emissive component -->
+     </material>
+     <material id="green">                                  
+        <shininess value="1.0" />
+        <specular r="0" g="0.90" b="0.25" a="1.0" />        <!-- specular reflection -->
+         <diffuse r="0" g="0.90" b="0.25" a="1.0" />         <!-- diffuse reflection -->
+         <ambient r="0" g="0.90" b="0.25" a="1.0" />         <!-- ambient reflection -->
+         <emissive r="0" g="0.90" b="0.25" a="1.0" />        <!-- emissive component -->
+      </material>
+      <material id="red">                                  
+        <shininess value="1.0" />
+        <specular r="1" g="0" b="0" a="1.0" />        <!-- specular reflection -->
+         <diffuse r="1" g="0" b="0" a="1.0" />         <!-- diffuse reflection -->
+         <ambient r="1" g="0" b="0" a="1.0" />         <!-- ambient reflection -->
+         <emissive r="0.5" g="0" b="0" a="1.0" />        <!-- emissive component -->
+      </material>
+</materials>
+
+<nodes>
+
+    <node id="root">
+    <!-- next two lines are mandatory -->
+        <material id="null" />      <!-- this superimposes the material received from parent node
+                                      id="null" maintains material from parent node -->
+
+
+        <texture id="clear">         <!-- declared texture superimposes the texture received from parent node
+                                      id="null" maintains texture from parent node
+                                      id="clear" clears texture declaration received from parent node -->
+
+
+            <amplification afs="1" aft="1" />            <!-- for primitives = dx/afs, dy/aft -->
+
+        </texture>
+        <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+
+        <transformations>
+            <scale sx="0.5" sy="0.5" sz="0.5" />
+        </transformations>
+
+         <!-- declaring descendants, at least one node or one leaf must be present
+            descendants may be mixed, nodes and leafs -->
+        <descendants>
+           <noderef id="walls" />   <!-- "ss" is the identifier of a node or of leaf; -->
+                                 <!-- may be repeated as necessary. It can refer an -->
+                                 <!-- identifier of another node, before or later defined in the file. -->
+            <noderef id="floor" /> 
+            <noderef id="securityGantry" />  
+
+        </descendants>
+        
+    </node>
+
+    <node id="walls">       <!-- defines one intermediate node; may be repeated as necessary -->
+
+        <material id="null" />    
+
+        <texture id="clear">         
+
+
+            <amplification afs="1" aft="1" />       
+
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="-10" />
+        </transformations>
+
+        <descendants>
+            <noderef id="leftWall" />  
+            <noderef id="glassWall" />  
+        </descendants>
+
+    </node>
+
+    <node id="leftWall">       
+
+        <material id="navy_blue" />      
+        <texture id="clear">     
+            <amplification afs="1" aft="1" />            
+        </texture>
+
+        <transformations>
+            <translation x="-10" y="10" z="20" />
+            <scale sx="1" sy="1" sz="1" />
+            <rotation axis="y" angle="90" /> 
+            
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-20" y1="-10" x2="20" y2="10" />
+                            <!-- 2D coordinates on the XY plane for left-bottom and right-top vertices. -->
+            <noderef id="dangerSign" /> 
+            <noderef id="restroomSign"/>
+            <noderef id="flightBoard"/>
+            <noderef id="measures"/>
+        </descendants>
+
+    </node>
+
+    
+
+    <node id="glassWall">      
+
+        <material id="Off_white_emissive" /> 
+        <texture id="glassWallTexture">  
+            <amplification afs="20" aft="20" />           
+        </texture>
+
+        <transformations>
+            <translation x="0" y="10" z="0" />
+        </transformations>
+
+        <descendants>
+            <noderef id="gateSign"/>
+            <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" />
+        </descendants>
+
+    </node>
+
+    <node id="dangerSign">  
+        <material id="Off_white_emissive" />     
+        <texture id="danger">    
+            <amplification afs="2" aft="2" />        
+        </texture>
+
+        <transformations> 
+            <translation x="-3" y="0" z="0.4" />
+            <scale sx="1.2" sy="1.2" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="triangle" x1="-1" y1="-1" x2="1" y2="-1" x3="0" y3="1" />
+        </descendants>
+
+    </node>
+    
+    <node id="gateSign">  
+        <material id="Off_white_emissive" />     
+        <texture id="gateTexture">    
+            <amplification afs="4" aft="4" />        
+        </texture>
+
+        <transformations> 
+            <translation x="9" y="0" z="0.1"/>
+            <scale sx="0.4" sy="0.4" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-2" y1="-2" x2="2" y2="2" />
+        </descendants>
+    </node>
+    <node id="restroomSign">
+        <material id="Off_white_emissive" />     
+        <texture id="restroomTexture">    
+            <amplification afs="4" aft="4" />        
+        </texture>
+
+        <transformations> 
+            <translation x="18" y="-2" z="0.1" />
+            <scale sx="0.4" sy="0.4" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-2" y1="-2" x2="2" y2="2" />
+        </descendants>
+
+    </node>
+    <node id="measures">  
+        <material id="Off_white_emissive" />     
+        <texture id="measuresTexture">    
+            <amplification afs="4" aft="4" />        
+        </texture>
+
+        <transformations> 
+            <translation x="15" y="-1" z="0.1" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-2" y1="-2" x2="2" y2="2" />
+        </descendants>
+
+    </node>
+    <node id="flightBoard">  
+        <material id="Off_white_emissive" />     
+        <texture id="flightBoardTexture">    
+            <amplification afs="4" aft="4" />        
+        </texture>
+
+        <transformations> 
+            <translation x="-12" y="1" z="0.1" />
+            <scale sx="3.5" sy="2.5" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-2" y1="-2" x2="2" y2="2" />
+        </descendants>
+    </node>
+        
+    <node id="securityGantry">      
+
+        <material id="White" />     
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />            
+        </texture>
+
+        <transformations>
+            <scale sx="0.25" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>                    
+            <noderef id="rightSphere"/>
+            <noderef id="leftSphere"/>
+            <leaf type="torus" inner="1" outer="12" slices="20" loops="6"/>
+                <!-- inner and outer radius, sections around the inner radius, sections around the outer radius  -->
+        </descendants>
+
+    </node>
+
+     <node id="leftSphere">       
+
+        <material id="green" />    
+        <texture id="clear">        
+            <amplification afs="1" aft="1" />        
+        </texture>
+
+        <transformations>
+            <translation x="-2" y="10.5" z="1.1" />
+            <scale sx="1" sy="1" sz="0.4" />
+        </transformations>
+
+        <descendants>
+            <leaf type="sphere" radius="0.25" slices="16" stacks="8"/>  
+        </descendants>
+
+    </node>
+
+    <node id="rightSphere">      
+        <material id="red" />      
+        <texture id="clear">        
+            <amplification afs="1" aft="1" />          
+        </texture>
+
+        <transformations>
+            <translation x="2" y="10.5" z="1.1" />
+            <scale sx="1" sy="1" sz="0.4" />
+        </transformations>
+
+        <descendants>
+            <leaf type="sphere" radius="0.25" slices="16" stacks="8"/>
+        </descendants>
+
+    </node>
+
+    <node id="floor">    
+
+        <material id="null" />   
+        <texture id="null">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+
+        <transformations>
+        </transformations>
+
+        <descendants>
+           <noderef id="securityMat" />
+            <noderef id="floorRectangle"/>
+            <noderef id="feetRetangle"/>
+            <noderef id="leftBoxes"/>
+            <noderef id="rightBoxes"/>
+            <noderef id="divisors1"/>
+            <noderef id="divisors2"/>
+            <noderef id="distanceMark1"/>
+            <noderef id="distanceMark2"/>
+        </descendants>
+
+    </node>
+    <node id="distanceMark1">    
+
+        <material id="Off_white_emissive" />   
+        <texture id="securityTexture">    
+            <amplification afs="2" aft="2" />         
+        </texture>
+
+
+        <transformations>
+            <translation x="-2.5" y="0.1" z="15" />
+            <rotation axis="x" angle="-90" /> 
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="distanceMark2">    
+
+        <material id="Off_white_emissive" />   
+        <texture id="securityTexture">    
+            <amplification afs="2" aft="2" />         
+        </texture>
+
+
+        <transformations>
+            <translation x="2.5" y="0.1" z="15" />
+            <rotation axis="x" angle="-90" /> 
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+     <node id="divisors1">    
+
+        <material id="emissive" />   
+        <texture id="metalTexture">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+
+        <transformations>
+            <translation x="0" y="0" z="3" />
+        </transformations>
+
+        <descendants>
+            <noderef id="divisors"/>
+        </descendants>
+
+    </node>
+       <node id="divisors2">    
+
+        <material id="emissive" />   
+
+        <texture id="metalTexture">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="12" />
+        </transformations>
+
+        <descendants>
+            <noderef id="divisors"/>
+        </descendants>
+
+    </node>
+   
+    <node id="divisors">    
+
+        <material id="null" />   
+        <texture id="null">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+
+        <transformations>
+            <translation x="0" y="0" z="10" />
+        </transformations>
+
+        <descendants>
+           <noderef id="frontDivisor"/>
+            <noderef id="backDivisor"/>
+            <noderef id="middleDivisor"/>
+        </descendants>
+    </node>
+     <node id="frontDivisor">    
+
+        <material id="null" />   
+        <texture id="null">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+        <transformations>
+            <rotation axis="x" angle="-90" /> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.2" stacks="8" slices="24"/>
+        </descendants>
+    </node>
+    <node id="backDivisor">    
+
+        <material id="null" />   
+        <texture id="null">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+
+        <transformations>
+            <translation x="0" y="0" z="6" />
+            <rotation axis="x" angle="-90" /> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.2" stacks="8" slices="24"/>
+        </descendants>
+    </node>
+    <node id="middleDivisor">    
+
+        <material id="null" />   
+        <texture id="null">    
+            <amplification afs="1" aft="1" />         
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="3" />
+            <rotation axis="x" angle="-90" /> 
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="5" topRadius="0.1" bottomRadius="0.2" stacks="8" slices="24"/>
+        </descendants>
+    </node>
+    <node id="leftBoxes">
+        <material id="Off_white_emissive" />    
+        <texture id="clear"> 
+            <amplification afs="1" aft="1" />  
+        </texture>
+
+        <transformations>
+            <translation x="-7.5" y="0.4" z="8" />
+        </transformations>
+
+        <descendants>
+           <noderef id="boxPile"/>
+           <noderef id="laptop"/>
+        </descendants>
+    </node>
+    <node id="laptop">
+        <material id="Porcelain_Grey" />    
+        <texture id="laptopTexture"> 
+            <amplification afs="2" aft="2" />  
+        </texture>
+
+        <transformations>
+            <rotation axis="x" angle="-90" />
+            <translation x="0" y="1.0" z="5.1" />
+            <scale sx="0.8" sy="1" sz="0.6" />-->
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+    </node>
+    <node id="rightBoxes">
+        <material id="Off_white_emissive" />    
+        <texture id="clear"> 
+            <amplification afs="1" aft="1" />  
+        </texture>
+
+        <transformations>
+            <translation x="7.5" y="0.4" z="8" />
+        </transformations>
+
+        <descendants>
+           <noderef id="boxPile"/>
+        </descendants>
+    </node>
+    <node id="floorRectangle">
+        <material id="Off_white_emissive" />    
+        <texture id="floorTexture"> 
+            <amplification afs="4" aft="4" />  
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="10" />
+            <rotation axis="x" angle="-90" />
+            <scale sx="1" sy="2" sz="2" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-10" y1="-10" x2="10" y2="10" />
+        </descendants>
+    </node>
+    <node id="feetRetangle">
+        <material id="Off_white_emissive" />    
+        <texture id="feetTexture"> 
+            <amplification afs="2" aft="2" />  
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0.1" z="0" />
+            <rotation axis="x" angle="-90" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+    </node>
+
+
+    <node id="securityMat">     
+        <material id="null" />  
+        <texture id="clear">
+            <amplification afs="1" aft="1" /> 
+        </texture>
+
+        <transformations>
+            <translation x="0" y="5" z="0" />
+            <scale sx="1" sy="1" sz="1" />-->
+        </transformations>
+
+        <descendants>
+           <noderef id="LeftSecurityMat" />
+            <noderef id="RightSecurityMat" />  
+        </descendants>
+
+    </node>
+
+
+    <node id="LeftSecurityMat">       
+        <material id="null" /> 
+
+        <texture id="clear">         
+            <amplification afs="1" aft="1" />     
+        </texture>
+
+        <transformations>
+            <translation x="0.1" y="0" z="0" />
+        </transformations>
+
+        <descendants>
+            <noderef id="LeftMatRetangle" />
+            <noderef id="LLCylinder" />
+            <noderef id="LRCylinder" />   
+            <noderef id="LeftBase" />  
+            <noderef id="LeftXRayBox"/> 
+            <noderef id="curtainsLeft"/>
+        </descendants>
+
+    </node>
+
+
+    <node id="RightSecurityMat"> 
+
+        <material id="null" />    
+        <texture id="clear">      
+            <amplification afs="1" aft="1" />          
+        </texture>
+
+        <transformations>
+        </transformations>
+
+        <descendants>
+            <noderef id="RightMatRetangle" />
+            <noderef id="RLCylinder" />
+            <noderef id="RRCylinder" />  
+            <noderef id="RightBase" />
+            <noderef id="RightXRayBox"/>
+            <noderef id="RightCurtains"/>        
+        </descendants>
+
+    </node>
+
+    <node id="LeftBase">   
+
+         <material id="Porcelain_Grey" />    
+         <texture id="clear">   
+             <amplification afs="1" aft="1" />     
+         </texture>
+ 
+         <transformations>
+             <translation x="-7.41" y="-0.03" z="2.2" />
+             <rotation axis="x" angle="90" />
+             <scale sx="1" sy="1" sz="1" />
+         </transformations>
+
+         <descendants>
+                 <leaf type="cylinder" height="4.95" topRadius="2.4" bottomRadius="2.4" stacks="8" slices="24"/>
+                   <!-- height, top radius, bottom radius, sections along height (stacks), parts per section (slices); main axis is aligned with ZZ; must have top and bottom caps -->    
+         </descendants>
+ 
+     </node>
+
+     <node id="RightBase">       
+
+         <material id="Porcelain_Grey" />  
+         <texture id="clear">       
+             <amplification afs="1" aft="1" />      
+         </texture>
+ 
+         <transformations>
+            <translation x="7.56" y="-0.03" z="2.1" />
+            <rotation axis="x" angle="90" />
+            <scale sx="1" sy="1" sz="1" />
+         </transformations>
+
+         <descendants>
+                 <leaf type="cylinder" height="4.95" topRadius="2.4" bottomRadius="2.4" stacks="8" slices="24"/>
+                   <!-- height, top radius, bottom radius, sections along height (stacks), parts per section (slices); main axis is aligned with ZZ; must have top and bottom caps -->    
+         </descendants>
+ 
+     </node>
+    <node id="LeftXRayBox"> 
+        <material id="Porcelain_Grey" />      
+        <texture id="clear">
+            <amplification afs="1" aft="1" />        
+        </texture>
+
+        <transformations>
+            <translation x="-7.5" y="0" z="2" />
+            <scale sx="0.91" sy="1" sz="2"/>
+        </transformations>
+
+        <descendants>
+                <leaf type="torus" inner="0.5" outer="2.25" slices="40" loops="6"/>
+        </descendants>
+
+    </node>
+     <node id="RightXRayBox"> 
+        <material id="Porcelain_Grey" />      
+        <texture id="clear">
+            <amplification afs="1" aft="1" />        
+        </texture>
+
+        <transformations>
+            <translation x="7.5" y="0" z="2" />
+            <scale sx="0.91" sy="1" sz="2"/>
+        </transformations>
+
+        <descendants>
+                <leaf type="torus" inner="0.5" outer="2.25" slices="40" loops="6"/>
+        </descendants>
+
+    </node>
+
+
+    <node id="LeftMatRetangle">      
+
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-7.5" y="0" z="2.5" />
+            <rotation axis="x" angle="-90" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-2" y1="-7.5" x2="2" y2="7.5" />
+        </descendants>
+
+    </node>
+
+    <node id="LLCylinder">   
+
+        <material id="Porcelain_Grey" />     
+        <texture id="clear">
+            <amplification afs="1" aft="1" /> 
+        </texture>
+
+        <transformations>
+            <translation x="-9.75" y="0" z="-5" />
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="15" topRadius="0.3" bottomRadius="0.3" stacks="8" slices="16"/>    
+                  <!-- height, top radius, bottom radius, sections along height (stacks), parts per section (slices); main axis is aligned with ZZ; must have top and bottom caps -->    
+        </descendants>
+
+    </node>
+ 
+    <node id="LRCylinder"> 
+
+        <material id="Porcelain_Grey" />      
+        <texture id="clear">        
+            <amplification afs="1" aft="1" />     
+        </texture>
+
+        <transformations>
+            <translation x="-5.25" y="0" z="-5" />
+
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="15" topRadius="0.3" bottomRadius="0.3" stacks="8" slices="16"/>   
+                  <!-- height, top radius, bottom radius, sections along height (stacks), parts per section (slices); main axis is aligned with ZZ; must have top and bottom caps -->    
+        </descendants>
+
+    </node>
+    
+ 
+    <node id="RightMatRetangle">    
+
+        <material id="black" /> 
+        <texture id="clear">      
+            <amplification afs="1" aft="1" />       
+        </texture>
+
+
+        <transformations>
+            <translation x="7.5" y="0" z="2.5" />
+            <rotation axis="x" angle="-90" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-2" y1="-7.5" x2="2" y2="7.5" />
+        </descendants>
+
+    </node>
+
+    <node id="RLCylinder"> 
+
+        <material id="Porcelain_Grey" />    
+        <texture id="clear">     
+            <amplification afs="1" aft="1" />          
+        </texture>
+
+        <transformations>
+            <translation x="5.25" y="0" z="-5" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="15" topRadius="0.3" bottomRadius="0.3" stacks="8" slices="16"/>    
+        </descendants>
+
+    </node>
+
+   <node id="RRCylinder"> 
+        <material id="Porcelain_Grey" />
+        <texture id="clear">  
+            <amplification afs="1" aft="1" />          
+        </texture>
+
+        <transformations>
+            <translation x="9.75" y="0" z="-5" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="cylinder" height="15" topRadius="0.3" bottomRadius="0.3" stacks="8" slices="16"/>    
+                  <!-- height, top radius, bottom radius, sections along height (stacks), parts per section (slices); main axis is aligned with ZZ; must have top and bottom caps -->    
+        </descendants>
+    </node>
+
+    <node id="curtainsLeft">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+                <translation x="-7" y="0.1" z="2" />
+                <scale sx="0.1" sy="1.5" sz="1" />-->
+        </transformations>
+
+        <descendants>
+            <noderef id="curtain1"/>
+            <noderef id="curtain2"/>
+            <noderef id="curtain3"/>
+            <noderef id="curtain4"/>
+            <noderef id="curtain5"/>
+            <noderef id="curtain6"/>
+            <noderef id="curtain7"/>
+            <noderef id="curtain8"/>
+            <noderef id="curtain9"/>
+            <noderef id="curtain10"/>
+            <noderef id="curtain11"/>
+            <noderef id="curtain12"/>
+            <noderef id="curtain13"/>
+        </descendants>
+    </node>
+    <node id="curtain1">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-2.5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain2">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="0" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+            <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+    </node>
+
+    <node id="curtain3">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="2.5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain4">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-10" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain5">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-7.5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain6">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain7">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-12.5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain8">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-15" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain9">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-17.5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain10">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="-20" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain11">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="5" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain12">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="7.50" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="curtain13">      
+        <material id="black" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="10" y="0" z="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </transformations>
+
+        <descendants>
+           <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1" />
+        </descendants>
+
+    </node>
+    <node id="RightCurtains">      
+        <material id="null" />    
+        <texture id="clear">       
+            <amplification afs="1" aft="1" />      
+        </texture>
+
+        <transformations>
+            <translation x="15" y="0" z="0" />
+        </transformations>
+
+        <descendants>
+           <noderef id="curtainsLeft"/>
+        </descendants>
+
+    </node>
+    <node id="boxPile"> 
+        <material id="null" />
+        <texture id="clear">
+            <amplification afs="1.0" aft="1.0" />
+        </texture>
+
+        <transformations>
+            <translation x="0" y="5" z="-1.0" />
+            <scale sx="1.9" sy="0.4" sz="2.7" />
+            <rotation axis="y" angle="45" /> 
+            <rotation axis="x" angle="90" />  
+        </transformations>
+        
+        <descendants>
+            <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="8" slices="4"/>
+        </descendants>
+
+    </node>
+
+    </nodes>
+
+</lsf>
