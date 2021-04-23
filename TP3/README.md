@@ -9,6 +9,7 @@
 
 
 ----
+
 ## Project information
 
 The game  developed was Emulsion, a two-player game. 
@@ -22,10 +23,10 @@ Each turn has a maximum time, when this time is up, the player loses its turn.
 There is also the possibility to undo the last move.
 At the end of the game, the game movie is available, where all plays from the game are animated in according order to represent the game.
 Cameras switch with an animation from point of view to point of view.
-----
+
 ## Issues/Problems
 
 - Cameras don't switch between players on scenes 2 and 3 
 - When switching scenes, lights from last scene don't turn off
 
-----
+
