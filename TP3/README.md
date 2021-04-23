@@ -10,6 +10,7 @@
 
 ----
 ## Project information
+
 The game  developed was Emulsion, a two-player game. 
 In the main menu, the user can choose the players type ( Bot or Player) and in case of choosing Bot, it must also choose the difficulty. In addition it can choose the board size and the playTime. After all this decisions have been made, the user must press play to start the game.
 The game starts with the pieces coming out of a box and being placed in the board with the right setup.
